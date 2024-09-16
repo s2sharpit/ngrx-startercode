@@ -17,7 +17,8 @@ import { groceriesEffects } from './store/effects/grocery.effect';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
+    // provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore({ groceries: groceryReducer, myBucket: bucketReducer }),
     provideEffects(groceriesEffects),

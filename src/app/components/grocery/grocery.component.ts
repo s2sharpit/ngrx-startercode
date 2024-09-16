@@ -18,19 +18,20 @@ export class GroceryComponent {
 
   // groceries$?:Observable<Grocery[]> = this.store.select("groceries");
   
-  groceries$?:Observable<Grocery[]>;
-  filteredGroceries$?:Observable<Grocery[]>;
+  // groceries$?:Observable<Grocery[]>;
+  groceries: Signal<Grocery[]>;
+  filteredGroceries:Signal<Grocery[]>;
 
   constructor(private store: Store<{groceries: Grocery[]}>) {
-    this.groceries$ = store.select(selectGroceries)
-    this.filteredGroceries$ = this.groceries$;
+    this.groceries = store.selectSignal(selectGroceries)
+    this.filteredGroceries = this.groceries;
   }
 
 
   onTypeChange(event: Event){
     const selectedType = (event.target as HTMLSelectElement).value;
-    if (selectedType) this.filteredGroceries$ = this.store.select(selectGroceryByType(selectedType))
-    else this.filteredGroceries$ = this.groceries$;
+    if (selectedType) this.filteredGroceries = this.store.selectSignal(selectGroceryByType(selectedType))
+    else this.filteredGroceries = this.groceries;
   }
 
 
